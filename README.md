@@ -108,9 +108,9 @@ kubectl delete -f .
 ### Step 9: Install AWS Load Balancer
 ``` shell
 curl -O https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.5.4/docs/install/iam_policy.json
-aws iam create-policy --policy-name AWSLoadBalancerControllerIAMPolicy --policy-document file://iam_policy.json
-eksctl utils associate-iam-oidc-provider --region=us-west-2 --cluster=three-tier-cluster --approve
-eksctl create iamserviceaccount --cluster=three-tier-cluster --namespace=kube-system --name=aws-load-balancer-controller --role-name AmazonEKSLoadBalancerControllerRole --attach-policy-arn=arn:aws:iam::626072240565:policy/AWSLoadBalancerControllerIAMPolicy --approve --region=us-west-2
+aws iam create-policy --policy-name AWSLoadBalancerControllerIAMPolicy-for-three-tier_app --policy-document file://iam_policy.json
+eksctl utils associate-iam-oidc-provider --region=ap-south-1 --cluster=three-tier-application --approve
+eksctl create iamserviceaccount   --cluster three-tier-application   --namespace kube-system   --name aws-load-balancer-controller   --role-name AmazonEKSLoadBalancerControllerRole-for-three-tier_app   --attach-policy-arn arn:aws:iam::471208936138:policy/AWSLoadBalancerControllerIAMPolicy-for-three-tier_app   --approve   --region ap-south-1   --override-existing-serviceaccounts
 ```
 
 ### Step 10: Deploy AWS Load Balancer Controller
@@ -126,7 +126,7 @@ kubectl apply -f full_stack_lb.yaml
 ### Cleanup
 - To delete the EKS cluster:
 ``` shell
-eksctl delete cluster --name three-tier-cluster --region us-west-2
+eksctl delete cluster --name three-tier-application --region ap-south-1
 ```
 - To clean up rest of the stuff and not incure any cost
 ```
