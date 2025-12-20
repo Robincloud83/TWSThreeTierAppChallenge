@@ -107,7 +107,7 @@ kubectl delete -f .
 
 ### Step 9: Install AWS Load Balancer
 ``` shell
-curl -O https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.5.4/docs/install/iam_policy.json
+curl -O https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/main/docs/install/iam_policy.json
 aws iam create-policy --policy-name AWSLoadBalancerControllerIAMPolicy-for-three-tier_app --policy-document file://iam_policy.json
 eksctl utils associate-iam-oidc-provider --region=ap-south-1 --cluster=three-tier-application --approve
 eksctl create iamserviceaccount   --cluster three-tier-application   --namespace kube-system   --name aws-load-balancer-controller   --role-name AmazonEKSLoadBalancerControllerRole-for-three-tier_app   --attach-policy-arn arn:aws:iam::471208936138:policy/AWSLoadBalancerControllerIAMPolicy-for-three-tier_app   --approve   --region ap-south-1   --override-existing-serviceaccounts
